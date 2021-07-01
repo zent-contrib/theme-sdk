@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "importHelpers": true,
+    "moduleResolution": "node",
+    "preserveWatchOutput": true,
+    "declaration": true,
+    "module": "es2015",
+    "lib": [
+      "dom",
+      "es2019"
+    ],
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+  },
+  "exclude": [
+    "./cmd",
+    "./esm",
+    "node_modules"
+  ],
+  "include": ["./src/index.ts"]
+}
