@@ -1,6 +1,6 @@
 {
   "name": "zent-theme-sdk",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "The theme SDK for Zent",
   "main": "./cmd/index.js",
   "module": "./esm/index.js",
