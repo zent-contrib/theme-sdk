@@ -1,5 +1,5 @@
 {
-  "name": "theme-sdk",
+  "name": "@zent/theme-sdk",
   "version": "0.0.1",
   "description": "The theme SDK for Zent",
   "main": "./cmd/index.js",
@@ -14,6 +14,10 @@
     "zent",
     "theme",
     "sdk"
+  ],
+  "files": [
+    "cmd/",
+    "esm/"
   ],
   "repository": {
     "type": "git",
