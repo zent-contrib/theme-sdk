@@ -1,6 +1,6 @@
 {
-  "name": "@zent/theme-sdk",
-  "version": "0.0.1",
+  "name": "zent-theme-sdk",
+  "version": "0.0.2",
   "description": "The theme SDK for Zent",
   "main": "./cmd/index.js",
   "module": "./esm/index.js",
@@ -30,6 +30,7 @@
     "tslib": "^2.3.0"
   },
   "devDependencies": {
+    "@types/node": "^15.12.5",
     "rimraf": "^3.0.2"
   }
 }
