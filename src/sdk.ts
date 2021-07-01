@@ -13,7 +13,9 @@ import {
   IThemeConfig,
   IPalette,
   IHexToRgbFn,
+  ICssVarRefs,
 } from './types';
+import { getZentThemeRefs } from './refs';
 
 const primaryColor = '#155bd4';
 
@@ -23,6 +25,7 @@ const ThemeScenes = [
   ThemeScene.PrimaryBackgroundColor,
   ThemeScene.PrimaryActiveBackgroundColor,
 ];
+
 export class ThemeSdk {
   static defaultTheme = ThemeSdk.generateTheme({
     colors: [{ baseColor: primaryColor, scene: ThemeScenes }],
@@ -33,7 +36,7 @@ export class ThemeSdk {
     return generateColorPalette(baseColor);
   }
 
-  static generateTheme(config: IThemeConfig, cssRefs?: ICssVarRef[]): ITheme {
+  static generateTheme(config: IThemeConfig, cssRefs?: ICssVarRefs): ITheme {
     const { colors } = config;
 
     const getThemeColors = (
@@ -62,18 +65,23 @@ export class ThemeSdk {
       }, [] as IThemeColor[]);
     };
 
-    if (!cssRefs) {
+    const zentDefaultRefs = getZentThemeRefs();
+    const currentRefs: ICssVarRefs | null = cssRefs || zentDefaultRefs;
+
+    if (!currentRefs) {
       return { colors: [] as IThemeColor[] };
     }
 
-    const themeColors: IThemeColor[] = getThemeColors(cssRefs[0]).concat(
-      getThemeColors(cssRefs[1], hexToRGBString)
+    const { cssVarRef, cssRgbVarRef } = currentRefs;
+
+    const themeColors: IThemeColor[] = getThemeColors(cssVarRef).concat(
+      getThemeColors(cssRgbVarRef, hexToRGBString)
     );
 
     return { colors: themeColors };
   }
 
-  static applyTheme(theme: ITheme) {
+  static applyTheme(theme: ITheme): void {
     const { colors } = theme;
     colors.forEach(item => {
       document.documentElement.style.setProperty(

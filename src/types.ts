@@ -39,3 +39,8 @@ export interface ITheme {
 export type IPalette = IColor[];
 
 export type IHexToRgbFn = (color: string) => string;
+
+export interface ICssVarRefs  {
+  cssVarRef: ICssVarRef,
+  cssRgbVarRef: ICssVarRef
+}
