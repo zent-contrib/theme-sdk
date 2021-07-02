@@ -9,11 +9,11 @@ import {
   IColor,
   IThemeColor,
   ITheme,
-  ICssVarRef,
+  ICssVars,
   IThemeConfig,
   IPalette,
   IHexToRgbFn,
-  ICssVarRefs,
+  IThemeCssVars,
 } from './types';
 import { getZentThemeRefs } from './refs';
 
@@ -36,11 +36,11 @@ export class ThemeSdk {
     return generateColorPalette(baseColor);
   }
 
-  static generateTheme(config: IThemeConfig, cssRefs?: ICssVarRefs): ITheme {
+  static generateTheme(config: IThemeConfig, cssRefs?: IThemeCssVars): ITheme {
     const { colors } = config;
 
     const getThemeColors = (
-      cssVarRefs: ICssVarRef,
+      cssVarRefs: ICssVars,
       colorHandleFn?: IHexToRgbFn
     ) => {
       return colors.reduce((preThemeColors, colorConfig) => {
@@ -66,16 +66,16 @@ export class ThemeSdk {
     };
 
     const zentDefaultRefs = getZentThemeRefs();
-    const currentRefs: ICssVarRefs | null = cssRefs || zentDefaultRefs;
+    const currentRefs: IThemeCssVars | null = cssRefs || zentDefaultRefs;
 
     if (!currentRefs) {
       return { colors: [] as IThemeColor[] };
     }
 
-    const { cssVarRef, cssRgbVarRef } = currentRefs;
+    const { hex, rgb } = currentRefs;
 
-    const themeColors: IThemeColor[] = getThemeColors(cssVarRef).concat(
-      getThemeColors(cssRgbVarRef, hexToRGBString)
+    const themeColors: IThemeColor[] = getThemeColors(hex).concat(
+      getThemeColors(rgb, hexToRGBString)
     );
 
     return { colors: themeColors };

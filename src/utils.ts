@@ -2,7 +2,7 @@ import { inputToRGB } from '@ctrl/tinycolor';
 import {
   ThemeScene,
   IThemeColor,
-  ICssVarRef,
+  ICssVars,
   IPalette,
   IThemeColorSceneConfig,
   IHexToRgbFn,
@@ -12,19 +12,19 @@ import {
 type IGenerateThemeRelation = (
   palette: IPalette,
   scene: ThemeScene,
-  cssVarRefs: ICssVarRef,
+  cssVars: ICssVars,
   colorHandleFn?: IHexToRgbFn
 ) => IThemeColor[];
 
 type IGetSetOfOneThemeColor = (
   colorConfig: IThemeColorSceneConfig,
-  cssVarRefs: ICssVarRef,
+  cssVars: ICssVars,
   paletteGenerateFn?: (hex: string) => string[],
   colorHandleFn?: IHexToRgbFn
 ) => IThemeColor[];
 
 type IGetSetOfThemeVariable = (
-  cssVarRefs: ICssVarRef,
+  cssVars: ICssVars,
   variableName: string,
   color: IColor,
   colorHandleFn?: IHexToRgbFn
@@ -71,13 +71,13 @@ const sceneVariableRelation: ISceneVariableRelation = themeRelation.reduce((pre,
 export const generateThemeRelation: IGenerateThemeRelation = (
   palette,
   scene,
-  cssVarRefs,
+  cssVars,
   colorHandleFn
 ) => {
   const sceneInfo = sceneVariableRelation[scene];
   if (!sceneInfo) return [];
 
-  const cssVariableNames = cssVarRefs?.[sceneInfo.variableName];
+  const cssVariableNames = cssVars?.[sceneInfo.variableName];
   if (!cssVariableNames) return [];
   const paletteIndex = sceneInfo.index;
 
@@ -91,7 +91,7 @@ export const generateThemeRelation: IGenerateThemeRelation = (
 
 export const getSetOfOneThemeColor: IGetSetOfOneThemeColor = (
   colorConfig,
-  cssVarRefs,
+  cssVars,
   paletteGenerateFn,
   colorHandleFn
 ) => {
@@ -102,14 +102,14 @@ export const getSetOfOneThemeColor: IGetSetOfOneThemeColor = (
   if (Array.isArray(scene)) {
     currentColors = scene.reduce((theme, currentScene) => {
       return theme.concat(
-        generateThemeRelation(palette, currentScene, cssVarRefs, colorHandleFn)
+        generateThemeRelation(palette, currentScene, cssVars, colorHandleFn)
       );
     }, [] as IThemeColor[]);
   } else {
     currentColors = generateThemeRelation(
       palette,
       scene,
-      cssVarRefs,
+      cssVars,
       colorHandleFn
     );
   }
@@ -117,12 +117,12 @@ export const getSetOfOneThemeColor: IGetSetOfOneThemeColor = (
 };
 
 export const getSetOfThemeVariable: IGetSetOfThemeVariable = (
-  cssVarRefs,
+  cssVars,
   variableName,
   color,
   colorHandleFn
 ) => {
-  return cssVarRefs?.[variableName]?.map(cssVariableName => ({
+  return cssVars?.[variableName]?.map(cssVariableName => ({
     color: colorHandleFn ? colorHandleFn(color) : color,
     cssVariableName,
   }));

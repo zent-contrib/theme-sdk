@@ -1,10 +1,10 @@
 import fs from 'fs';
 import path from 'path';
-import { ICssVarRefs } from './types';
+import { IThemeCssVars } from './types';
 
-const CSS_VAR_REF_FILE = 'theme-css-var-refs.json';
+const CSS_VAR_FILE = 'theme-css-vars.json';
 
-export const getZentThemeRefs: () => ICssVarRefs | null = () => {
+export const getZentThemeRefs: () => IThemeCssVars | null = () => {
   // doesn't in node
   if(!fs || !fs.readFileSync) {
     return null;
@@ -19,7 +19,7 @@ export const getZentThemeRefs: () => ICssVarRefs | null = () => {
 
   // zent >= 9.8.1
   try {
-    const refsPath = path.resolve(zentPath.replace("index.js", ""), CSS_VAR_REF_FILE);
+    const refsPath = path.resolve(zentPath.replace("index.js", ""), CSS_VAR_FILE);
     const data = fs.readFileSync(refsPath, { encoding: 'utf-8' }).toString();
     const refs = JSON.parse(data);
     return refs;

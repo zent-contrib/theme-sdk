@@ -7,7 +7,7 @@ export enum ThemeScene {
   PrimaryActiveBackgroundColor,
 }
 
-export interface ICssVarRef {
+export interface ICssVars {
   [key: string]: string[];
 }
 
@@ -40,7 +40,7 @@ export type IPalette = IColor[];
 
 export type IHexToRgbFn = (color: string) => string;
 
-export interface ICssVarRefs  {
-  cssVarRef: ICssVarRef,
-  cssRgbVarRef: ICssVarRef
+export interface IThemeCssVars {
+  hex: ICssVars,
+  rgb: ICssVars
 }
