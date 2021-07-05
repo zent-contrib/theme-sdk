@@ -17,7 +17,7 @@
     "allowSyntheticDefaultImports": true,
   },
   "exclude": [
-    "./cmd",
+    "./cjs",
     "./esm",
     "node_modules"
   ],

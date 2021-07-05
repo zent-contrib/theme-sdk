@@ -2,12 +2,12 @@
   "name": "zent-theme-sdk",
   "version": "1.0.0",
   "description": "The theme SDK for Zent",
-  "main": "./cmd/index.js",
+  "main": "./cjs/index.js",
   "module": "./esm/index.js",
   "types": "./esm/index.d.ts",
   "scripts": {
-    "build": "yarn build:esm && yarn build:cmd",
-    "build:cmd": "rimraf cmd && tsc --module commonjs --esModuleInterop --outDir cmd",
+    "build": "yarn build:esm && yarn build:cjs",
+    "build:cjs": "rimraf cjs && tsc --module commonjs --esModuleInterop --outDir cjs",
     "build:esm": "rimraf esm && tsc --module es2015 --outDir esm"
   },
   "keywords": [
@@ -16,7 +16,7 @@
     "sdk"
   ],
   "files": [
-    "cmd/",
+    "cjs/",
     "esm/"
   ],
   "repository": {
